@@ -68,10 +68,10 @@ export interface CreateCustomerParams {
   name: string;
   email: string;
   cpfCnpj: string;
-  mobilePhone: string;
   address: string;
   addressNumber: string;
   postalCode: string;
+  mobilePhone?: string;
 }
 
 const createCustomer = async (body: CreateCustomerParams) => (

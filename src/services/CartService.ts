@@ -4,6 +4,7 @@ import { createCartSchema } from '../schemas/cart';
 import responses from '../constants/responses';
 import CustomError from '../types/CustomError';
 import { RestaurantModel } from '../models/Restaurant';
+import UserModel from '../models/User';
 
 const getCart = async (userId: string) => {
   const cart = await CartModel.findOne({ userId });
@@ -16,6 +17,12 @@ const getCart = async (userId: string) => {
 };
 
 const createCart = async (userId: string, values: z.infer<typeof createCartSchema>) => {
+  const user = await UserModel.findOne({ _id: userId });
+  if (!user) {
+    const { message, status } = responses.NOT_FOUND;
+    throw new CustomError(message, status);
+  }
+
   const cart = await CartModel.findOne({ userId });
   if (cart) {
     const { message, status } = responses.CONFLICT;

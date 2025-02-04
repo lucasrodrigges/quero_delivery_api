@@ -5,12 +5,12 @@ services:
     build: .
     ports:
       - "3000:3000"
-    environment:
-      - MONGO_URL=mongodb://mongo:27017/quero-delivery-api
     depends_on:
       - mongo
     volumes:
-      - .:/app 
+      - .:/app
+    env_file:
+      - .env
 
   mongo:
     image: mongo:6
@@ -18,6 +18,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    env_file:
+      - .env
 
 volumes:
   mongo_data:

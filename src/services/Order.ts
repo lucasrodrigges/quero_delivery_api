@@ -34,13 +34,14 @@ const createOrder = async (userId: string) => {
     description: `Pedido #${code}`,
     externalReference: code,
   });
+
   if (chargeError) {
+    console.log({ chargeError });
     const { message, status } = responses.INTERNAL_SERVER_ERROR;
     throw new CustomError(message, status);
   }
 
   const { data: pix } = await asaas.getPixQRCode(charge.id);
-
   const order = await OrderModel.create({
     code,
     userId,
@@ -63,6 +64,11 @@ const createOrder = async (userId: string) => {
 
   return {
     code: order.code,
+    status: order.status,
+    totalPrice: order.totalPrice,
+    products: order.products,
+    deliveryAddress: order.deliveryAddress,
+    pixPayload: order.payment.pixPayload,
   };
 };
 

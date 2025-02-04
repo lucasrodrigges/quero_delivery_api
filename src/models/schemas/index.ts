@@ -43,44 +43,42 @@ const orderItems = new mongoose.Schema({
 
 const payment = new mongoose.Schema({
   type: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: Number,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+  dueDate: {
+    type: String,
+    required: true,
+  },
+  externalId: {
+    type: String,
+    required: true,
+  },
+  invoiceUrl: {
+    type: String,
+    required: true,
+  },
+  pixPayload: {
     type: {
-      type: String,
-      required: true,
-    },
-    value: {
-      type: Number,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-    },
-    dueDate: {
-      type: String,
-      required: true,
-    },
-    externalId: {
-      type: String,
-      required: true,
-    },
-    invoiceUrl: {
-      type: String,
-      required: true,
-    },
-    pixPayload: {
-      type: {
-        payload: {
-          type: String,
-          required: true,
-        },
-        encodedImage: {
-          type: String,
-          required: true,
-        },
-        expirationDate: {
-          type: String,
-          required: true,
-        },
+      payload: {
+        type: String,
+        required: true,
+      },
+      encodedImage: {
+        type: String,
+        required: true,
+      },
+      expirationDate: {
+        type: String,
+        required: true,
       },
     },
   },
