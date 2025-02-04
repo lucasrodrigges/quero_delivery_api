@@ -7,8 +7,8 @@ RestaurantRoutes.get(
   '/:restaurantId/products',
   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const products = await RestaurantService.getRestaurantProducts(req.params.restaurantId);
-      res.json(products);
+      const response = await RestaurantService.getRestaurantProducts(req.params.restaurantId);
+      res.json(response);
     } catch (error) {
       next(error);
     }

@@ -11,8 +11,8 @@ CartRoutes.get(
   '/',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const cart = await CartService.getCart(req.user!.id);
-      res.json(cart);
+      const response = await CartService.getCart(req.user!.id);
+      res.json(response);
     } catch (error) {
       next(error);
     }

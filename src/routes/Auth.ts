@@ -14,8 +14,8 @@ AuthRoutes.post(
   validateBody(loginSchema),
   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const token = await AuthService.login(req.body.email, req.body.password);
-      res.json(token);
+      const response = await AuthService.login(req.body.email, req.body.password);
+      res.json(response);
     } catch (error) {
       next(error);
     }

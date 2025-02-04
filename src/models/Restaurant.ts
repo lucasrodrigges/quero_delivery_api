@@ -1,46 +1,13 @@
 import mongoose from 'mongoose';
+import dbSchemas from './schemas';
 
 export const restaurantSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  stars: {
-    type: Number,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  logoImage: {
-    type: String,
-  },
+  name: { type: String, required: true },
+  stars: { type: Number, required: true },
+  address: { type: dbSchemas.address, required: true },
+  logoImage: { type: String },
   products: {
-    type: [{
-      name: {
-        type: String,
-        required: true,
-      },
-      price: {
-        type: Number,
-        required: true,
-      },
-      category: {
-        type: String,
-        required: true,
-      },
-      stock: {
-        type: Number,
-        required: true,
-      },
-      description: {
-        type: String,
-      },
-      image: {
-        type: String,
-      },
-    }],
+    type: [dbSchemas.product],
     required: true,
   },
   createdAt: {

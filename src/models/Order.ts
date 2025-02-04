@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import dbSchemas from './schemas';
 
 export enum OrderStatusEnum {
   PENDING = 'PENDING',
@@ -23,103 +24,20 @@ export enum PaymentStatusEnum {
 }
 
 const orderSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
-  },
-  totalPrice: {
-    type: Number,
-    required: true,
-  },
-  status: {
-    type: OrderStatusEnum,
-    required: true,
-  },
+  code: { type: String, required: true, unique: true },
+  userId: { type: String, required: true },
+  totalPrice: { type: Number, required: true },
+  status: { type: String, required: true },
   payment: {
-    type: {
-      type: {
-        type: PaymentTypeEnum,
-        required: true,
-      },
-      value: {
-        type: Number,
-        required: true,
-      },
-      status: {
-        type: String,
-        required: true,
-      },
-      externalId: {
-        type: String,
-        required: true,
-      },
-      invoiceUrl: {
-        type: String,
-        required: true,
-      },
-      pixPayload: {
-        type: {
-          payload: {
-            type: String,
-            required: true,
-          },
-          encodedImage: {
-            type: String,
-            required: true,
-          },
-          expirationDate: {
-            type: String,
-            required: true,
-          },
-        },
-      },
-    },
+    type: dbSchemas.payment,
     required: true,
   },
   deliveryAddress: {
-    type: {
-      zipCode: {
-        type: String,
-        required: true,
-      },
-      street: {
-        type: String,
-        required: true,
-      },
-      number: {
-        type: String,
-        required: true,
-      },
-      complement: {
-        type: String,
-        required: true,
-      },
-      district: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      state: {
-        type: String,
-        required: true,
-      },
-    },
+    type: dbSchemas.address,
     required: true,
   },
   products: {
-    type: [{
-      productId: {
-        type: String,
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
-    }],
+    type: [dbSchemas.orderItems],
     required: true,
   },
 });

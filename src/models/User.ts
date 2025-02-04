@@ -1,49 +1,15 @@
 import mongoose from 'mongoose';
+import dbSchemas from './schemas';
 
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
+  name: { type: String, required: true },
+  phone: { type: String, required: true, unique: true },
+  cpf: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  customerId: { type: String },
   addresses: {
-    type: [{
-      zipCode: {
-        type: String,
-        required: true,
-      },
-      street: {
-        type: String,
-        required: true,
-      },
-      number: {
-        type: String,
-        required: true,
-      },
-      district: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      state: {
-        type: String,
-        required: true,
-      },
-      complement: {
-        type: String,
-      },
-    }],
+    type: [dbSchemas.address],
     required: true,
   },
   createdAt: {

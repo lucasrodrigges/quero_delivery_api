@@ -8,6 +8,7 @@ import { RestaurantModel } from './models/Restaurant';
 import seed from './config/seed';
 import RestaurantRoutes from './routes/Restaurant';
 import CartRoutes from './routes/Cart';
+import OrderRoutes from './routes/Order';
 
 dotenv.config();
 
@@ -20,15 +21,16 @@ app.use('/auth', AuthRoutes);
 // protected routes
 app.use('/restaurant', authMiddleware, RestaurantRoutes);
 app.use('/cart', authMiddleware, CartRoutes);
+app.use('/order', authMiddleware, OrderRoutes);
 
 // root route
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', (_req: express.Request, res: express.Response) => {
   res.json({
     message: 'Quero Delivery API v0.1',
   });
 });
 
-app.get('/seed', async (req: express.Request, res: express.Response) => {
+app.get('/seed', async (_req: express.Request, res: express.Response) => {
   try {
     await RestaurantModel.deleteMany({});
     await RestaurantModel.insertMany(seed.restaurants);
