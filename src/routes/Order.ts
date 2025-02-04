@@ -19,4 +19,16 @@ OrderRoutes.post(
   },
 );
 
+OrderRoutes.get(
+  '/stats',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const response = await OrderService.getOrdersStats(req.user!.id);
+      res.json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
 export default OrderRoutes;

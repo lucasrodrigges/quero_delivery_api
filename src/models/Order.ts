@@ -18,6 +18,7 @@ export enum PaymentTypeEnum {
 export enum PaymentStatusEnum {
   PENDING = 'PENDING',
   CONFIRMED = 'CONFIRMED',
+  DELIVERED = 'DELIVERED',
   CANCELED = 'CANCELED',
   FAILED = 'FAILED',
   REFUNDED = 'REFUNDED',
@@ -28,6 +29,7 @@ export const orderSchema = new mongoose.Schema({
   userId: { type: String, required: true },
   totalPrice: { type: Number, required: true },
   status: { type: String, required: true },
+  restaurantId: { type: String, required: true },
   payment: {
     type: dbSchemas.payment,
     required: true,

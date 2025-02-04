@@ -10,6 +10,9 @@ import RestaurantRoutes from './routes/Restaurant';
 import CartRoutes from './routes/Cart';
 import OrderRoutes from './routes/Order';
 import AsaasRoutes from './webhooks/Asaas';
+import UserModel from './models/User';
+import bcrypt from './utils/bcrypt';
+import OrderModel from './models/Order';
 
 dotenv.config();
 
@@ -37,7 +40,16 @@ app.get('/', (_req: express.Request, res: express.Response) => {
 app.post('/seed', async (_req: express.Request, res: express.Response) => {
   try {
     await RestaurantModel.deleteMany({});
+    await UserModel.deleteMany({});
+    await OrderModel.deleteMany({});
+
     await RestaurantModel.insertMany(seed.restaurants);
+    await UserModel.insertMany(await Promise.all(seed.users.map(async (user) => ({
+      ...user,
+      password: await bcrypt.hashPassword(user.password),
+    }))));
+    await OrderModel.insertMany(seed.orders);
+
     res.json({
       message: 'Database seeded',
     });

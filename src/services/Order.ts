@@ -58,6 +58,7 @@ const createOrder = async (userId: string) => {
     products: cart.products,
     status: OrderStatusEnum.PENDING,
     totalPrice: cart.totalPrice,
+    restaurantId: cart.restaurantId,
     payment: {
       type: PaymentTypeEnum.PIX,
       value: charge.value,
@@ -113,10 +114,88 @@ const updateOrderAndPaymentStatus = async ({
   });
 };
 
+const getOrdersStats = async (userId: string) => {
+  const orders = await OrderModel.find({ userId });
+  if (!orders || !orders.length) {
+    const { message, status } = responses.NOT_FOUND;
+    throw new CustomError(message, status);
+  }
+
+  const restaurantIdS: {
+    [key: string]: number
+  } = {};
+  const productIds: {
+    [key: string]: number
+  } = {};
+  const orderPrices: {
+    [key: string]: number
+  } = {};
+
+  const statistc = orders.reduce((acc, order) => {
+    acc.general.pendingOrders += order.status === OrderStatusEnum.PENDING ? 1 : 0;
+    acc.general.confirmedOrders += order.status === OrderStatusEnum.CONFIRMED ? 1 : 0;
+    acc.general.deliveredOrders += order.status === OrderStatusEnum.DELIVERED ? 1 : 0;
+    acc.general.canceledOrders += order.status === OrderStatusEnum.CANCELED ? 1 : 0;
+    acc.general.failedOrders += order.status === OrderStatusEnum.FAILED ? 1 : 0;
+
+    restaurantIdS[order.restaurantId] = (restaurantIdS[order.restaurantId] || 0) + 1;
+    order.products.forEach(({ productId, quantity }) => {
+      productIds[productId] = (productIds[productId] || 0) + quantity;
+    });
+
+    acc.financialSummary.totalSpent += order.totalPrice;
+    orderPrices[order.code] = order.totalPrice;
+
+    return acc;
+  }, {
+    general: {
+      pendingOrders: 0,
+      confirmedOrders: 0,
+      deliveredOrders: 0,
+      canceledOrders: 0,
+      failedOrders: 0,
+    },
+    financialSummary: {
+      totalSpent: 0,
+    },
+  });
+
+  const [[mostPurchasedProductId]] = Object.entries(productIds).sort((a, b) => b[1] - a[1]);
+  const [[mostPurchasedRestaurantId]] = Object.entries(restaurantIdS).sort((a, b) => b[1] - a[1]);
+  const averagePerOrder = statistc.financialSummary.totalSpent / orders.length;
+  const mostExpensiveOrder = Math.max(...Object.values(orderPrices));
+
+  const {
+    confirmedOrders, canceledOrders, failedOrders, deliveredOrders,
+  } = statistc.general;
+  const conversionPercent = ((confirmedOrders + deliveredOrders) / orders.length) * 100;
+  const cancellationPercent = ((canceledOrders + failedOrders) / orders.length) * 100;
+
+  return {
+    ...statistc,
+    general: {
+      ...statistc.general,
+      mostPurchasedProductId,
+      mostPurchasedRestaurantId,
+      totalOrders: orders.length,
+    },
+    financialSummary: {
+      ...statistc.financialSummary,
+      averagePerOrder,
+      mostExpensiveOrder,
+    },
+    orderConversion: {
+      conversionPercent,
+      cancellationPercent,
+    },
+  };
+};
+
 const OrderService = {
   findOrderByCode,
   createOrder,
   updateOrderAndPaymentStatus,
+  getOrdersStats,
 };
 
 export default OrderService;
