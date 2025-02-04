@@ -127,11 +127,11 @@ export default {
     {
       _id: '64f9b8a1e4b0a1a2b3c4d5e2',
       name: 'Lucas Rodrigues',
-      phone: '79998168503',
-      cpf: '05532757550',
+      phone: '96991796302',
+      cpf: '52842254147',
       email: 'rodriggeslucas@gmail.com',
       password: '123456',
-      customerId: 'cus_000006490567',
+      customerId: 'cus_000006490567', // ID do cliente já criado no Asaas em sandbox
       addresses: [
         {
           zipCode: '49042430',
