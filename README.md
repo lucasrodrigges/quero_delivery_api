@@ -15,7 +15,8 @@ npm install && npm run docker:up-logs
 ```
 
 Observação: A fim de facilitar os testes da api, usaremos um script de seed para popular o banco de dados.
-Basta chamar a rota `GET => /seed` para popular o banco de dados com os dados iniciais.
+Basta chamar a rota `POST => /seed` para popular o banco de dados com os dados iniciais. Para resetar o banco de dados
+chame a rota `POST => /reset`.
 
 
 # **Documentação da API - Quero Delivery**
