@@ -16,7 +16,7 @@ const getCart = async (userId: string) => {
   return cart;
 };
 
-const createCart = async (userId: string, values: z.infer<typeof createCartSchema>) => {
+const upsertCart = async (userId: string, values: z.infer<typeof createCartSchema>) => {
   const user = await UserModel.findOne({ _id: userId });
   if (!user) {
     const { message, status } = responses.NOT_FOUND;
@@ -24,11 +24,6 @@ const createCart = async (userId: string, values: z.infer<typeof createCartSchem
   }
 
   const cart = await CartModel.findOne({ userId });
-  if (cart) {
-    const { message, status } = responses.CONFLICT;
-    throw new CustomError(message, status);
-  }
-
   const restaurant = await RestaurantModel.findById(values.restaurantId);
   if (!restaurant) {
     const { message, status } = responses.NOT_FOUND;
@@ -52,11 +47,26 @@ const createCart = async (userId: string, values: z.infer<typeof createCartSchem
     return acc + (product!.price * quantity);
   }, 0);
 
-  await CartModel.create({
-    ...values,
-    userId,
-    totalPrice,
-  });
+  if (cart) {
+    await CartModel.findOneAndUpdate(
+      { userId },
+      {
+        $set: {
+          ...values,
+          id: cart.id,
+          userId,
+          totalPrice,
+        },
+      },
+      { upsert: true },
+    );
+  } else {
+    await CartModel.create({
+      ...values,
+      userId,
+      totalPrice,
+    });
+  }
 };
 
 const removeCart = async (userId: string) => {
@@ -69,7 +79,7 @@ const removeCart = async (userId: string) => {
 
 const CartService = {
   getCart,
-  createCart,
+  upsertCart,
   removeCart,
 };
 

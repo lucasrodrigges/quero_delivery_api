@@ -20,13 +20,13 @@ CartRoutes.get(
 );
 
 CartRoutes.post(
-  '/create',
+  '/upsert',
   validateBody(createCartSchema),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await CartService.createCart(req.user!.id, req.body);
+      await CartService.upsertCart(req.user!.id, req.body);
 
-      const { status, message } = responses.CREATED;
+      const { status, message } = responses.OK;
       res.status(status).json({ message });
     } catch (error) {
       next(error);
