@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import responses from "../constants/responses";
-import jose from "../utils/jose";
+import { NextFunction, Request, Response } from 'express';
+import responses from '../constants/responses';
+import jose from '../utils/jose';
 
 declare module 'express' {
   interface Request {
@@ -8,7 +8,7 @@ declare module 'express' {
       id: string
       name: string,
       email: string,
-    } 
+    }
   }
 }
 
