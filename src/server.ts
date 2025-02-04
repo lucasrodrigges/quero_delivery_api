@@ -14,6 +14,7 @@ import UserModel from './models/User';
 import bcrypt from './utils/bcrypt';
 import OrderModel from './models/Order';
 import createCode from './utils/createCode';
+import CartModel from './models/Cart';
 
 dotenv.config();
 
@@ -60,6 +61,22 @@ app.post('/seed', async (_req: express.Request, res: express.Response) => {
   } catch (error) {
     console.log({ seedError: error });
     res.status(500).json({ message: 'Error seeding database' });
+  }
+});
+
+app.post('/reset', async (_req: express.Request, res: express.Response) => {
+  try {
+    await RestaurantModel.deleteMany({});
+    await UserModel.deleteMany({});
+    await OrderModel.deleteMany({});
+    await CartModel.deleteMany({});
+
+    res.json({
+      message: 'Database reseted',
+    });
+  } catch (error) {
+    console.log({ resetError: error });
+    res.status(500).json({ message: 'Error reseting database' });
   }
 });
 
