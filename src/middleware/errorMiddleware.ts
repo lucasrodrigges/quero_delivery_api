@@ -9,7 +9,7 @@ const errorMiddleware = (
   _next: NextFunction,
 ): void => {
   const status = err.statusCode || 500;
-  const message = err.message || 'Internal Server Error';
+  const message = err.message && status !== 500 ? err.message : 'Internal Server Error';
 
   res.status(status).json({ message });
 };

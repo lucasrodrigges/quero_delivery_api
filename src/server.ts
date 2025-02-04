@@ -7,6 +7,7 @@ import authMiddleware from './middleware/authMiddleware';
 import { RestaurantModel } from './models/Restaurant';
 import seed from './config/seed';
 import RestaurantRoutes from './routes/Restaurant';
+import CartRoutes from './routes/Cart';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use('/auth', AuthRoutes);
 
 // protected routes
 app.use('/restaurant', authMiddleware, RestaurantRoutes);
+app.use('/cart', authMiddleware, CartRoutes);
 
 // root route
 app.get('/', (req: express.Request, res: express.Response) => {
