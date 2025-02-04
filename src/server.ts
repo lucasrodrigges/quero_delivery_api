@@ -2,11 +2,11 @@ import * as express from "express";
 import * as dotenv from "dotenv";
 import { connectDB } from "./config/database";
 import errorMiddleware from "./middleware/errorMiddleware";
-import ProductRoutes from "./routes/Product";
 import AuthRoutes from "./routes/Auth";
 import authMiddleware from "./middleware/authMiddleware";
 import { RestaurantModel } from "./models/Restaurant";
 import seed from "./config/seed";
+import RestaurantRoutes from "./routes/Restaurant";
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/auth", AuthRoutes);
 
 // protected routes
-app.use('/product', authMiddleware, ProductRoutes)
+app.use('/restaurant', authMiddleware, RestaurantRoutes)
 
 // root route
 app.get("/", (req: express.Request, res: express.Response) => {
