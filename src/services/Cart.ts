@@ -59,9 +59,18 @@ const createCart = async (userId: string, values: z.infer<typeof createCartSchem
   });
 };
 
+const removeCart = async (userId: string) => {
+  const cart = await CartModel.findOneAndDelete({ userId });
+  if (!cart) {
+    const { message, status } = responses.NOT_FOUND;
+    throw new CustomError(message, status);
+  }
+};
+
 const CartService = {
   getCart,
   createCart,
+  removeCart,
 };
 
 export default CartService;

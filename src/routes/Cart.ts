@@ -2,7 +2,7 @@ import * as express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import validateBody from '../middleware/validateBody';
 import { createCartSchema } from '../schemas/cart';
-import CartService from '../services/CartService';
+import CartService from '../services/Cart';
 import responses from '../constants/responses';
 
 const CartRoutes = express.Router();
@@ -27,6 +27,20 @@ CartRoutes.post(
       await CartService.createCart(req.user!.id, req.body);
 
       const { status, message } = responses.CREATED;
+      res.status(status).json({ message });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+CartRoutes.delete(
+  '/delete',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await CartService.removeCart(req.user!.id);
+
+      const { status, message } = responses.OK;
       res.status(status).json({ message });
     } catch (error) {
       next(error);
