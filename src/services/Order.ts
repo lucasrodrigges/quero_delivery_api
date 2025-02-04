@@ -7,6 +7,15 @@ import asaas from './external/asaas';
 import createCode from '../utils/createCode';
 import OrderModel, { OrderStatusEnum, PaymentTypeEnum } from '../models/Order';
 
+const findOrderByCode = async (code: string) => {
+  const order = await OrderModel.findOne({ code });
+  if (!order) {
+    const { message, status } = responses.NOT_FOUND;
+    throw new CustomError(message, status);
+  }
+  return order;
+};
+
 const createOrder = async (userId: string) => {
   const user = await UserModel.findOne({ _id: userId });
   if (!user) {
@@ -72,8 +81,42 @@ const createOrder = async (userId: string) => {
   };
 };
 
+interface IUpdateOrderAndPaymentStatus {
+  code: string;
+  orderStatus: OrderStatusEnum;
+  paymentStatus: string;
+}
+
+const updateOrderAndPaymentStatus = async ({
+  code,
+  orderStatus,
+  paymentStatus,
+}: IUpdateOrderAndPaymentStatus) => {
+  const order = await OrderModel.findOne({ code });
+  if (!order) {
+    const { message, status } = responses.NOT_FOUND;
+    throw new CustomError(message, status);
+  }
+
+  if (order.status === OrderStatusEnum.CONFIRMED) {
+    const { message, status } = responses.CONFLICT;
+    throw new CustomError(message, status);
+  }
+
+  await OrderModel.findOneAndUpdate({
+    code,
+  }, {
+    status: orderStatus,
+    payment: {
+      status: paymentStatus,
+    },
+  });
+};
+
 const OrderService = {
+  findOrderByCode,
   createOrder,
+  updateOrderAndPaymentStatus,
 };
 
 export default OrderService;

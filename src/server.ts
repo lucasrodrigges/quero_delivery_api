@@ -9,6 +9,7 @@ import seed from './config/seed';
 import RestaurantRoutes from './routes/Restaurant';
 import CartRoutes from './routes/Cart';
 import OrderRoutes from './routes/Order';
+import AsaasRoutes from './webhooks/Asaas';
 
 dotenv.config();
 
@@ -22,6 +23,9 @@ app.use('/auth', AuthRoutes);
 app.use('/restaurant', authMiddleware, RestaurantRoutes);
 app.use('/cart', authMiddleware, CartRoutes);
 app.use('/order', authMiddleware, OrderRoutes);
+
+// webhooks
+app.use('/webhooks/asaas', AsaasRoutes);
 
 // root route
 app.get('/', (_req: express.Request, res: express.Response) => {
