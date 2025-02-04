@@ -13,6 +13,7 @@ import AsaasRoutes from './webhooks/Asaas';
 import UserModel from './models/User';
 import bcrypt from './utils/bcrypt';
 import OrderModel from './models/Order';
+import createCode from './utils/createCode';
 
 dotenv.config();
 
@@ -48,7 +49,10 @@ app.post('/seed', async (_req: express.Request, res: express.Response) => {
       ...user,
       password: await bcrypt.hashPassword(user.password),
     }))));
-    await OrderModel.insertMany(seed.orders);
+    await OrderModel.insertMany(seed.orders.map((order) => ({
+      ...order,
+      code: createCode(),
+    })));
 
     res.json({
       message: 'Database seeded',

@@ -131,7 +131,7 @@ export default {
       cpf: '05532757550',
       email: 'rodriggeslucas@gmail.com',
       password: '123456',
-      customerId: undefined,
+      customerId: 'cus_000006490567',
       addresses: [
         {
           zipCode: '49042430',
@@ -148,7 +148,6 @@ export default {
     },
   ],
   orders: [{
-    code: 'ORD123456',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 53.9,
     status: 'PENDING',
@@ -184,7 +183,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123457',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 45.5,
     status: 'CONFIRMED',
@@ -220,7 +218,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123458',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 68.0,
     status: 'DELIVERED',
@@ -256,7 +253,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123459',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 113.0,
     status: 'CANCELED',
@@ -297,7 +293,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123460',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 76.0,
     status: 'FAILED',
@@ -333,7 +328,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123461',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 40.0,
     status: 'PENDING',
@@ -369,7 +363,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123462',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 30.0,
     status: 'CONFIRMED',
@@ -400,7 +393,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123463',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 50.0,
     status: 'DELIVERED',
@@ -436,7 +428,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123464',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 90.0,
     status: 'CANCELED',
@@ -472,7 +463,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123465',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 60.0,
     status: 'FAILED',
@@ -508,7 +498,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123466',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 45.0,
     status: 'PENDING',
@@ -549,43 +538,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123456',
-    userId: '64f9b8a1e4b0a1a2b3c4d5e2',
-    totalPrice: 53.90,
-    status: 'PENDING',
-    restaurantId: '64f8b4a2e4b0d12a3f8b4567',
-    payment: {
-      type: 'PIX',
-      value: 53.90,
-      status: 'PENDING',
-      dueDate: '2023-10-10T12:00:00Z',
-      externalId: 'pay_123456',
-      invoiceUrl: 'https://example.com/invoice/123456',
-      pixPayload: {
-        payload: 'pix_payload_123',
-        encodedImage: 'encoded_image_123',
-        expirationDate: '2023-10-10T12:00:00Z',
-      },
-    },
-    deliveryAddress: {
-      zipCode: '01001000',
-      street: 'Rua das Flores',
-      number: '123',
-      complement: 'Apto 101',
-      district: 'Centro',
-      city: 'São Paulo',
-      state: 'SP',
-    },
-    products: [
-      {
-        productId: '64f8c1a2e4b0d12a3f8b1001',
-        quantity: 2,
-        userObservation: 'Sem bacon, por favor.',
-      },
-    ],
-  },
-  {
-    code: 'ORD123457',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 45.50,
     status: 'CONFIRMED',
@@ -621,7 +573,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123458',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 68.00,
     status: 'DELIVERED',
@@ -657,7 +608,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123459',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 113.00,
     status: 'CANCELED',
@@ -698,7 +648,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123460',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 76.00,
     status: 'FAILED',
@@ -734,7 +683,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123461',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 40.00,
     status: 'PENDING',
@@ -770,7 +718,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123462',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 30.00,
     status: 'CONFIRMED',
@@ -801,7 +748,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123463',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 50.00,
     status: 'DELIVERED',
@@ -837,7 +783,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123464',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 90.00,
     status: 'CANCELED',
@@ -873,7 +818,6 @@ export default {
     ],
   },
   {
-    code: 'ORD123465',
     userId: '64f9b8a1e4b0a1a2b3c4d5e2',
     totalPrice: 60.00,
     status: 'FAILED',
