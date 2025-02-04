@@ -11,7 +11,7 @@
 
 Comando para iniciar o ambiente de desenvolvimento:
 ```bash
-npm run docker:up-logs
+npm install && npm run docker:up-logs
 ```
 
 Observação: A fim de facilitar os testes da api, usaremos um script de seed para popular o banco de dados.
