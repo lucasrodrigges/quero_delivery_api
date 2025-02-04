@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import dbSchemas from './schemas';
 
-const userSchema = new mongoose.Schema({
+export const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   phone: { type: String, required: true, unique: true },
   cpf: { type: String, required: true, unique: true },

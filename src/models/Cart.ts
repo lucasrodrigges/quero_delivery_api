@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import dbSchemas from './schemas';
 
-const cartSchema = new mongoose.Schema({
+export const cartSchema = new mongoose.Schema({
   userId: { type: String, required: true, unique: true },
   restaurantId: { type: String, required: true },
   totalPrice: { type: Number, required: true },

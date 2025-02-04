@@ -23,7 +23,7 @@ export enum PaymentStatusEnum {
   REFUNDED = 'REFUNDED',
 }
 
-const orderSchema = new mongoose.Schema({
+export const orderSchema = new mongoose.Schema({
   code: { type: String, required: true, unique: true },
   userId: { type: String, required: true },
   totalPrice: { type: Number, required: true },

@@ -10,7 +10,10 @@ const getRestaurantProducts = async (restaurantId: string) => {
     throw new CustomError(message, status);
   }
 
-  return restaurant.products;
+  return {
+    count: restaurant.products.length,
+    products: restaurant.products,
+  };
 };
 
 const RestaurantService = {

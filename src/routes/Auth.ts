@@ -1,11 +1,10 @@
 import * as express from 'express';
 import { NextFunction, Request, Response } from 'express';
 import AuthService from '../services/Auth';
-import { createUserSchema } from '../schemas/user';
 import responses from '../constants/responses';
 import UserService from '../services/User';
 import validateBody from '../middleware/validateBody';
-import { loginSchema } from '../schemas/auth';
+import { createUserSchema, loginSchema } from '../schemas/auth';
 
 const AuthRoutes = express.Router();
 
@@ -27,10 +26,10 @@ AuthRoutes.post(
   validateBody(createUserSchema),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await UserService.createUser(req.body);
+      const response = await UserService.createUser(req.body);
 
-      const { status, message } = responses.CREATED;
-      res.status(status).json({ message });
+      const { status } = responses.CREATED;
+      res.status(status).json(response);
     } catch (error) {
       next(error);
     }

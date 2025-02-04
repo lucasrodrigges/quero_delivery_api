@@ -30,7 +30,7 @@ app.get('/', (_req: express.Request, res: express.Response) => {
   });
 });
 
-app.get('/seed', async (_req: express.Request, res: express.Response) => {
+app.post('/seed', async (_req: express.Request, res: express.Response) => {
   try {
     await RestaurantModel.deleteMany({});
     await RestaurantModel.insertMany(seed.restaurants);
