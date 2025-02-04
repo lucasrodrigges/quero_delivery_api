@@ -1,21 +1,20 @@
 import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
-  name: {
+const cartSchema = new mongoose.Schema({
+  userId: {
     type: String,
     required: true,
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
+  restaurantId: {
     type: String,
     required: true,
   },
-  addresses: {
-    type: [{
+  totalPrice: {
+    type: Number,
+    required: true,
+  },
+  deliveryAddress: {
+    type: {
       zipCode: {
         type: String,
         required: true,
@@ -27,6 +26,9 @@ const userSchema = new mongoose.Schema({
       number: {
         type: String,
         required: true,
+      },
+      complement: {
+        type: String,
       },
       district: {
         type: String,
@@ -40,22 +42,27 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      complement: {
+    },
+    required: true,
+  },
+  products: {
+    type: [{
+      productId: {
+        type: String,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+      userObservation: {
         type: String,
       },
     }],
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
 });
 
-const UserModel = mongoose.model('User', userSchema);
+const CartModel = mongoose.model('Cart', cartSchema);
 
-export default UserModel;
+export default CartModel;

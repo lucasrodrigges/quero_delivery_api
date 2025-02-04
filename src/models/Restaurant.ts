@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-export const restaurantSchema =new  mongoose.Schema({
+export const restaurantSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   stars: {
     type: Number,
@@ -11,7 +11,7 @@ export const restaurantSchema =new  mongoose.Schema({
   },
   address: {
     type: String,
-    required: true
+    required: true,
   },
   logoImage: {
     type: String,
@@ -20,37 +20,37 @@ export const restaurantSchema =new  mongoose.Schema({
     type: [{
       name: {
         type: String,
-        required: true
+        required: true,
       },
       price: {
         type: Number,
-        required: true
+        required: true,
       },
       category: {
         type: String,
-        required: true
+        required: true,
       },
       stock: {
         type: Number,
-        required: true
+        required: true,
       },
       description: {
         type: String,
       },
       image: {
-        type: String
+        type: String,
       },
     }],
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
-    default: Date.now
-  }
-})
+    default: Date.now,
+  },
+});
 
 export const RestaurantModel = mongoose.model('Restaurant', restaurantSchema);
