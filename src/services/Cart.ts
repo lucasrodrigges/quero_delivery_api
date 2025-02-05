@@ -6,7 +6,7 @@ import CustomError from '../types/CustomError';
 import { RestaurantModel } from '../models/Restaurant';
 import UserModel from '../models/User';
 
-const getCart = async (userId: string) => {
+const getCartByUserId = async (userId: string) => {
   const cart = await CartModel.findOne({ userId });
   if (!cart) {
     const { message, status } = responses.NOT_FOUND;
@@ -16,7 +16,7 @@ const getCart = async (userId: string) => {
   return cart;
 };
 
-const upsertCart = async (userId: string, values: z.infer<typeof createCartSchema>) => {
+const upsertCartByUserId = async (userId: string, values: z.infer<typeof createCartSchema>) => {
   const user = await UserModel.findOne({ _id: userId });
   if (!user) {
     const { message, status } = responses.NOT_FOUND;
@@ -24,6 +24,8 @@ const upsertCart = async (userId: string, values: z.infer<typeof createCartSchem
   }
 
   const cart = await CartModel.findOne({ userId });
+  console.log({ cart });
+
   const restaurant = await RestaurantModel.findById(values.restaurantId);
   if (!restaurant) {
     const { message, status } = responses.NOT_FOUND;
@@ -47,29 +49,21 @@ const upsertCart = async (userId: string, values: z.infer<typeof createCartSchem
     return acc + (product!.price * quantity);
   }, 0);
 
-  if (cart) {
-    await CartModel.findOneAndUpdate(
-      { userId },
-      {
-        $set: {
-          ...values,
-          id: cart.id,
-          userId,
-          totalPrice,
-        },
+  await CartModel.findOneAndUpdate(
+    { userId },
+    {
+      $set: {
+        ...values,
+        id: cart?._id || undefined,
+        userId,
+        totalPrice,
       },
-      { upsert: true },
-    );
-  } else {
-    await CartModel.create({
-      ...values,
-      userId,
-      totalPrice,
-    });
-  }
+    },
+    { upsert: true },
+  );
 };
 
-const removeCart = async (userId: string) => {
+const removeCartByUserId = async (userId: string) => {
   const cart = await CartModel.findOneAndDelete({ userId });
   if (!cart) {
     const { message, status } = responses.NOT_FOUND;
@@ -78,9 +72,9 @@ const removeCart = async (userId: string) => {
 };
 
 const CartService = {
-  getCart,
-  upsertCart,
-  removeCart,
+  getCartByUserId,
+  upsertCartByUserId,
+  removeCartByUserId,
 };
 
 export default CartService;

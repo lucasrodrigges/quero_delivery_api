@@ -1,39 +1,20 @@
 import * as express from 'express';
-import { NextFunction, Request, Response } from 'express';
-import AuthService from '../services/Auth';
-import responses from '../constants/responses';
-import UserService from '../services/User';
 import validateBody from '../middleware/validateBody';
 import { createUserSchema, loginSchema } from '../schemas/auth';
+import AuthController from '../controllers/Auth';
 
 const AuthRoutes = express.Router();
 
 AuthRoutes.post(
   '/login',
   validateBody(loginSchema),
-  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    try {
-      const response = await AuthService.login(req.body.email, req.body.password);
-      res.json(response);
-    } catch (error) {
-      next(error);
-    }
-  },
+  AuthController.login,
 );
 
 AuthRoutes.post(
   '/create',
   validateBody(createUserSchema),
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const response = await UserService.createUser(req.body);
-
-      const { status } = responses.CREATED;
-      res.status(status).json(response);
-    } catch (error) {
-      next(error);
-    }
-  },
+  AuthController.createUser,
 );
 
 export default AuthRoutes;

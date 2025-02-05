@@ -16,7 +16,7 @@ const findOrderByCode = async (code: string) => {
   return order;
 };
 
-const createOrder = async (userId: string) => {
+const createOrderByUserId = async (userId: string) => {
   const user = await UserModel.findOne({ _id: userId });
   if (!user) {
     const { message, status } = responses.NOT_FOUND;
@@ -88,7 +88,7 @@ interface IUpdateOrderAndPaymentStatus {
   paymentStatus: string;
 }
 
-const updateOrderAndPaymentStatus = async ({
+const updateOrderAndPaymentStatusByCode = async ({
   code,
   orderStatus,
   paymentStatus,
@@ -114,7 +114,7 @@ const updateOrderAndPaymentStatus = async ({
   });
 };
 
-const getOrdersStats = async (userId: string) => {
+const getOrderStatsByUserId = async (userId: string) => {
   const orders = await OrderModel.find({ userId });
   if (!orders || !orders.length) {
     const { message, status } = responses.NOT_FOUND;
@@ -193,9 +193,9 @@ const getOrdersStats = async (userId: string) => {
 
 const OrderService = {
   findOrderByCode,
-  createOrder,
-  updateOrderAndPaymentStatus,
-  getOrdersStats,
+  createOrderByUserId,
+  updateOrderAndPaymentStatusByCode,
+  getOrderStatsByUserId,
 };
 
 export default OrderService;

@@ -39,7 +39,7 @@ AsaasRoutes.post(
         return;
       }
 
-      await OrderService.updateOrderAndPaymentStatus({
+      await OrderService.updateOrderAndPaymentStatusByCode({
         code: payment.externalReference,
         orderStatus: orderStatus!,
         paymentStatus: payment.status,

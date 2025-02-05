@@ -1,51 +1,24 @@
 import * as express from 'express';
-import { Request, Response, NextFunction } from 'express';
 import validateBody from '../middleware/validateBody';
 import { createCartSchema } from '../schemas/cart';
-import CartService from '../services/Cart';
-import responses from '../constants/responses';
+import CartController from '../controllers/Cart';
 
 const CartRoutes = express.Router();
 
 CartRoutes.get(
   '/',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const response = await CartService.getCart(req.user!.id);
-      res.json(response);
-    } catch (error) {
-      next(error);
-    }
-  },
+  CartController.getCartByUserId,
 );
 
 CartRoutes.post(
   '/upsert',
   validateBody(createCartSchema),
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await CartService.upsertCart(req.user!.id, req.body);
-
-      const { status, message } = responses.OK;
-      res.status(status).json({ message });
-    } catch (error) {
-      next(error);
-    }
-  },
+  CartController.upsertCartByUserId,
 );
 
 CartRoutes.delete(
   '/delete',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await CartService.removeCart(req.user!.id);
-
-      const { status, message } = responses.OK;
-      res.status(status).json({ message });
-    } catch (error) {
-      next(error);
-    }
-  },
+  CartController.removeCartByUserId,
 );
 
 export default CartRoutes;

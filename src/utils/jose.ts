@@ -16,4 +16,13 @@ const decrypt = async (input: string): Promise<any> => {
   return payload;
 };
 
-export default { encrypt, decrypt };
+const isValidToken = async (token: string) => {
+  try {
+    await decrypt(token);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export default { encrypt, decrypt, isValidToken };

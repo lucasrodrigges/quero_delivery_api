@@ -32,7 +32,7 @@ Esta API oferece funcionalidades para o gerenciamento de usuários, restaurantes
   ```json
   {
     "name": "Antônia Joana Gabriela Drumond",
-    "cpf": "019.861.614-71",
+    "cpf": "01986161471",
     "email": "antoniajoanadrumond@helponline-sti.com",
     "password": "123456",
     "confirmPassword": "123456",
