@@ -18,6 +18,10 @@ Observação: A fim de facilitar os testes da api, usaremos um script de seed pa
 Basta chamar a rota `POST => /seed` para popular o banco de dados com os dados iniciais. Para resetar o banco de dados
 chame a rota `POST => /reset`.
 
+## Testes em deploy
+
+Link da API: https://querodeliveryapi-production.up.railway.app
+
 
 # **Documentação da API - Quero Delivery**
 
