@@ -180,6 +180,59 @@ export const mockOrder = {
   },
 };
 
+export const mockOrderInDB = {
+  _id: {
+    $oid: '67a33e09209dc8f0e2d8097f',
+  },
+  code: '7YROT5',
+  userId: '64f9b8a1e4b0a1a2b3c4d5e2',
+  totalPrice: 53.9,
+  status: 'PENDING',
+  restaurantId: '64f8b4a2e4b0d12a3f8b4567',
+  payment: {
+    type: 'PIX',
+    value: 53.9,
+    status: 'PENDING',
+    dueDate: '2023-10-10T12:00:00Z',
+    externalId: 'pay_123456',
+    invoiceUrl: 'https://example.com/invoice/123456',
+    pixPayload: {
+      payload: 'pix_payload_123',
+      encodedImage: 'encoded_image_123',
+      expirationDate: '2023-10-10T12:00:00Z',
+      _id: {
+        $oid: '67a33e09209dc8f0e2d80981',
+      },
+    },
+    _id: {
+      $oid: '67a33e09209dc8f0e2d80980',
+    },
+  },
+  deliveryAddress: {
+    zipCode: '01001000',
+    street: 'Rua das Flores',
+    number: '123',
+    complement: 'Apto 101',
+    district: 'Centro',
+    city: 'São Paulo',
+    state: 'SP',
+    _id: {
+      $oid: '67a33e09209dc8f0e2d80982',
+    },
+  },
+  products: [
+    {
+      productId: '64f8c1a2e4b0d12a3f8b1001',
+      quantity: 2,
+      userObservation: 'Sem bacon, por favor.',
+      _id: {
+        $oid: '67a33e09209dc8f0e2d80983',
+      },
+    },
+  ],
+  __v: 0,
+};
+
 export const mockOrderStats = {
   general: {
     pendingOrders: 1,
@@ -199,6 +252,28 @@ export const mockOrderStats = {
   orderConversion: {
     conversionPercent: 0,
     cancellationPercent: 0,
+  },
+};
+
+export const mockAllOrdersStats = {
+  general: {
+    pendingOrders: 4,
+    confirmedOrders: 4,
+    deliveredOrders: 4,
+    canceledOrders: 4,
+    failedOrders: 4,
+    mostPurchasedProductId: '64f8c1a2e4b0d12a3f8b1001',
+    mostPurchasedRestaurantId: '64f8b4a2e4b0d12a3f8b4567',
+    totalOrders: 20,
+  },
+  financialSummary: {
+    totalSpent: 1243.9,
+    averagePerOrder: 62.19500000000001,
+    mostExpensiveOrder: 113,
+  },
+  orderConversion: {
+    conversionPercent: 40,
+    cancellationPercent: 40,
   },
 };
 
@@ -313,4 +388,24 @@ export const mockRestaurant = {
       image: 'https://example.com/salada.jpg',
     },
   ],
+};
+
+export const mockPayment = {
+  type: 'PIX',
+  value: 53.9,
+  status: 'PENDING',
+  dueDate: '2023-10-10T12:00:00Z',
+  externalId: 'pay_123456',
+  invoiceUrl: 'https://example.com/invoice/123456',
+  pixPayload: {
+    payload: 'pix_payload_123',
+    encodedImage: 'encoded_image_123',
+    expirationDate: '2023-10-10T12:00:00Z',
+    _id: {
+      $oid: '67a33e09209dc8f0e2d80981',
+    },
+  },
+  _id: {
+    $oid: '67a33e09209dc8f0e2d80980',
+  },
 };

@@ -16,7 +16,7 @@ describe('AuthService', () => {
     jest.clearAllMocks();
   });
 
-  afterAll(() => {
+  afterEach(() => {
     server.close();
   });
 

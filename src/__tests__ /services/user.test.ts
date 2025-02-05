@@ -18,7 +18,7 @@ describe('UserService', () => {
     jest.clearAllMocks();
   });
 
-  afterAll(() => {
+  afterEach(() => {
     server.close();
   });
 

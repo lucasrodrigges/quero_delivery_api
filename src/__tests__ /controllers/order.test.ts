@@ -21,7 +21,7 @@ describe('OrderController', () => {
     (jose.decrypt as jest.Mock).mockResolvedValue({ user: mockTokenUser });
   });
 
-  afterAll(() => {
+  afterEach(() => {
     server.close();
   });
 
